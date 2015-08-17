@@ -4,4 +4,5 @@ terraform.tfvars
 **/terraform.tfvars
 **/provision/**
 **/bootstrap
+**/.bootstrap
 **/destroy
