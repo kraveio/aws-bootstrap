@@ -42,7 +42,7 @@ variable "sleep_seconds" {
 }
 
 variable "ssh_wait_seconds" {
-	default = "360"
+	default = "512"
 }
 
 
