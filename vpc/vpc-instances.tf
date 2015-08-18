@@ -34,7 +34,7 @@ resource "aws_instance" "nat" {
 
 	# create tunnel 
 	provisioner "local-exec" {
-		command = "ssh -i ${var.aws_private_key} -f -L 10250:${self.private_ip}:22 ec2-user@${aws_instance.jump.public_ip} -o StrictHostKeyChecking=no sleep ${var.ssh_wait_seconds} <&- >&- 2>&- &"
+		command = "ssh -i ${var.aws_private_key} -f -L 10250:${self.private_ip}:22 ec2-user@${aws_eip.jump.public_ip} -o StrictHostKeyChecking=no sleep ${var.ssh_wait_seconds} <&- >&- 2>&- &"
 	}
 
 	connection {
@@ -86,7 +86,7 @@ resource "aws_instance" "provision" {
 	}
 
 	provisioner "local-exec" {
-		command = "ssh -i ${var.aws_private_key} -f -L 12987:${self.private_ip}:22 ec2-user@${aws_instance.jump.public_ip} -o StrictHostKeyChecking=no sleep ${var.ssh_wait_seconds} <&- >&- 2>&- &"
+		command = "ssh -i ${var.aws_private_key} -f -L 12987:${self.private_ip}:22 ec2-user@${aws_eip.jump.public_ip} -o StrictHostKeyChecking=no sleep ${var.ssh_wait_seconds} <&- >&- 2>&- &"
 	}
 
 	connection {
@@ -179,5 +179,13 @@ resource "aws_instance" "jump" {
 	provisioner "local-exec" {
 		command = "${path.module}/ansible/jump/run-play ${var.aws_private_key}"
 	}
+
+	provisioner "remote-exec" {
+		inline = [
+			"echo connected"
+		]
+	}
+
 }
+
 
