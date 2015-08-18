@@ -5,6 +5,4 @@ ROOT=`pwd`
 cd setup
 
 ansible-galaxy install -r requirements.yml --force
-ansible-playbook setup.yml -c local --ask-vault-pass
-
-#ansible-playbook setup.yml -c local --ask-vault-pass -e "genesis_terraform_file=$ROOT/vpc.tf"
+ansible-playbook setup.yml -c local --ask-vault-pass -e "genesis_terraform_file=$ROOT/../vpc/vpc.tf"
