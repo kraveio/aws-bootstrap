@@ -7,7 +7,7 @@ resource "aws_security_group" "jump" {
 		from_port = 22
 		to_port = 22
 		protocol = "tcp"
-		cidr_blocks = ["${split("+",var.jump_access_cidr)}"]
+		cidr_blocks = ["${split(",",var.jump_access_cidr)}"]
 	}
 
 	ingress {
